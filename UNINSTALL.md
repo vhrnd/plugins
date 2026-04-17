@@ -1,47 +1,67 @@
-# Uninstalling LMS Review for Codex
+# AI Uninstall Instructions: LMS Review Personal Plugin
 
-## Goal
+Remove this plugin from the current user's personal Codex setup.
 
-Remove the `LMS Review` plugin and remove the global Codex MCP server:
+Target objects:
 
-```toml
-[mcp_servers.vh-lms-mcp]
-```
+- plugin name: `lms-review`
+- bundled skill: `skills/lms-review`
+- MCP server name: `vh-lms-mcp`
+- personal plugin folder: `~/.codex/plugins/lms-review`
+- personal marketplace file: `~/.agents/plugins/marketplace.json`
+- global Codex config: `~/.codex/config.toml`
 
-If this plugin is still being published from a marketplace repository, also remove its entry from that repository's:
+## Required behavior
 
-```text
-.agents/plugins/marketplace.json
-```
+Perform the uninstall directly. Do not just describe it.
 
-## Instructions
+- Remove only `lms-review` and `vh-lms-mcp`
+- Preserve unrelated marketplace entries, plugins, skills, and MCP servers
+- Remove both the source plugin folder and any installed cache copies for this plugin
 
-1. Remove the installed plugin cache if it exists:
+## Uninstall steps
 
-```bash
-rm -rf ~/.codex/plugins/cache/lms-mcp
-```
+### 1. Remove the personal marketplace entry
 
-2. Remove the plugin entry from:
+Open `~/.agents/plugins/marketplace.json` and remove the plugin entry whose `name` is `lms-review`.
 
-```text
-~/.codex/config.toml
-```
+Rules:
 
-Delete this block if present:
+- preserve all unrelated entries
+- do not rewrite the file into a new shape unless needed
+- if the file becomes empty, it may still remain as a valid marketplace file
 
-```toml
-[plugins."lms-review@lms-mcp"]
-enabled = true
-```
+### 2. Remove the personal plugin source folder
 
-3. Remove the global MCP entry from:
+Delete only:
 
 ```text
-~/.codex/config.toml
+~/.codex/plugins/lms-review
 ```
 
-Delete these blocks if present:
+This removes the bundled `lms-review` skill and the plugin-local `.mcp.json`.
+
+### 3. Remove installed cache copies of this plugin
+
+Codex installs marketplace plugins into cache directories under:
+
+```text
+~/.codex/plugins/cache/
+```
+
+Remove cache directories for `lms-review` only.
+
+Search for matching paths such as:
+
+```text
+~/.codex/plugins/cache/*/lms-review/
+```
+
+Delete only the matching `lms-review` directories. Do not delete unrelated cache entries.
+
+### 4. Remove plugin state and MCP config from `~/.codex/config.toml`
+
+Remove the global MCP server block for `vh-lms-mcp` if present:
 
 ```toml
 [mcp_servers.vh-lms-mcp]
@@ -49,33 +69,40 @@ url = "https://dev-mcp.vuihoc.vn/lms"
 enabled = true
 
 [mcp_servers.vh-lms-mcp.http_headers]
-token = "<USER_VUIHOC_TOKEN>"
+token = "<REAL_VUIHOC_TOKEN>"
 ```
 
-4. Restart Codex.
+Also remove any plugin state block for this plugin if present. Remove only entries for `lms-review`, for example:
 
-5. If the plugin still appears in the Codex marketplace UI, remove its marketplace entry from the publishing repository and push that change.
-
-Example marketplace cleanup:
-
-```json
-{
-  "plugins": []
-}
+```toml
+[plugins."lms-review@some-marketplace"]
+enabled = true
 ```
+
+Rules:
+
+- preserve unrelated `plugins.*` blocks
+- preserve unrelated `mcp_servers.*` blocks
+- keep valid TOML formatting
+
+### 5. Restart Codex
+
+Restart Codex so the marketplace and cache changes are reflected.
+
+If you cannot restart the app directly, tell the user a restart is still required.
 
 ## Verify
 
-Confirm all of the following are true:
+The uninstall is complete only if all checks below pass:
 
-- `~/.codex/plugins/cache/lms-mcp` does not exist
-- `~/.codex/config.toml` does not contain `lms-review@lms-mcp`
-- `~/.codex/config.toml` does not contain `vh-lms-mcp`
-- the publishing repository no longer contains an `lms-review` entry in `.agents/plugins/marketplace.json`
+- `~/.codex/plugins/lms-review` does not exist
+- `~/.agents/plugins/marketplace.json` no longer contains a `lms-review` entry
+- `~/.codex/plugins/cache/` no longer contains cache directories for `lms-review`
+- `~/.codex/config.toml` no longer contains `vh-lms-mcp`
+- `~/.codex/config.toml` no longer contains plugin state entries for `lms-review@...`
 
-## Required behavior for the AI following this file
+## Notes for the AI executing this file
 
-- Prefer removing the installed artifacts directly instead of only explaining them.
-- Remove only `lms-review@lms-mcp` and `vh-lms-mcp`.
-- Do not modify unrelated plugins or MCP servers.
-- If the task includes removing the plugin from marketplace listings, also delete the `lms-review` entry from the publishing repository's `.agents/plugins/marketplace.json`.
+- The bundled skill is removed by deleting the plugin folder and cache copies.
+- Do not uninstall other plugins from the same marketplace.
+- Do not claim success until the verification checks pass.
