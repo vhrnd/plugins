@@ -1,0 +1,45 @@
+{
+  "name": "lms-review",
+  "version": "0.1.0",
+  "description": "Installable Codex plugin for reviewing LMS revise and practice data through the hosted VUIHOC MCP server.",
+  "author": {
+    "name": "VH EdTech",
+    "email": "",
+    "url": "https://vuihoc.vn/"
+  },
+  "homepage": "https://vuihoc.vn/",
+  "repository": "",
+  "license": "UNLICENSED",
+  "keywords": [
+    "lms",
+    "review",
+    "mcp",
+    "vuihoc"
+  ],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "LMS Review",
+    "shortDescription": "Connect Codex to the hosted VUIHOC LMS MCP server for review workflows",
+    "longDescription": "Install this plugin to access the hosted VUIHOC LMS MCP server and review revise or practice data with your own VUIHOC token.",
+    "developerName": "VH EdTech",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read"
+    ],
+    "websiteURL": "https://vuihoc.vn/",
+    "privacyPolicyURL": "",
+    "termsOfServiceURL": "",
+    "defaultPrompt": [
+      "Lấy dữ liệu revise để tôi review nội dung bài.",
+      "Lấy dữ liệu practice và chỉ ra lỗi kiến thức hoặc đáp án.",
+      "Đọc revise này và tóm tắt các vấn đề cần sửa."
+    ],
+    "brandColor": "#0F766E",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png",
+    "screenshots": [
+      "./assets/screenshot1.png"
+    ]
+  }
+}

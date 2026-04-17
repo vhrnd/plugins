@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "vh-lms-mcp": {
+      "disabled": false,
+      "headers": {
+        "token": "<YOUR_VUIHOC_TOKEN>"
+      },
+      "url": "https://dev-mcp.vuihoc.vn/lms"
+    }
+  }
+}
