@@ -23,12 +23,20 @@ The marketplace definition is:
 After installing the plugin, register the MCP globally in Codex:
 
 ```bash
+python3 plugins/lms-review/scripts/install_codex_mcp.py
+```
+
+The script will ask for the user's VUIHOC token directly in the terminal and then write it into the global Codex MCP config automatically.
+
+If you already have the token in another scripted flow, this still works:
+
+```bash
 python3 plugins/lms-review/scripts/install_codex_mcp.py --token "<USER_VUIHOC_TOKEN>"
 ```
 
-Restart Codex. That's it — the MCP should now be available globally as `vh-lms-mcp`.
+Restart Codex. The MCP should now be available globally as `vh-lms-mcp`.
 
-Do not rely on editing the token only inside the plugin UI. Persist the token through `~/.codex/config.toml` using the command above.
+Do not rely on editing the token only inside the plugin UI. Persist the token through the install script above so users do not need to open `~/.codex/config.toml` manually.
 
 ## Verify
 
@@ -53,13 +61,13 @@ If needed, verify by asking the AI to confirm that `vh-lms-mcp` is present in th
 
 ## Updating
 
-To update the global MCP token later, run:
+To update the global MCP token later, run the same command again:
 
 ```bash
-python3 plugins/lms-review/scripts/install_codex_mcp.py --token "<NEW_USER_VUIHOC_TOKEN>"
+python3 plugins/lms-review/scripts/install_codex_mcp.py
 ```
 
-The script is idempotent and updates only the `vh-lms-mcp` block in `~/.codex/config.toml`.
+The script is idempotent and updates only the `vh-lms-mcp` block in `~/.codex/config.toml`. You can also keep using `--token` for scripted updates.
 
 ## Troubleshooting
 
@@ -71,7 +79,13 @@ The script is idempotent and updates only the `vh-lms-mcp` block in `~/.codex/co
 
 ### Token missing
 
-Tell the user to open:
+Tell the user to rerun:
+
+```bash
+python3 plugins/lms-review/scripts/install_codex_mcp.py
+```
+
+If a manual fix is absolutely needed, open:
 
 ```text
 ~/.codex/config.toml

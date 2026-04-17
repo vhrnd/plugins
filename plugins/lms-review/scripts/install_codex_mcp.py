@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import getpass
 from pathlib import Path
 
 SERVER_NAME = "vh-lms-mcp"
@@ -64,11 +65,27 @@ def install_global_mcp(config_path: Path, token: str) -> None:
     config_path.write_text(updated, encoding="utf-8")
 
 
+def resolve_token(token: str | None) -> str:
+    if token is not None:
+        normalized = token.strip()
+        if normalized:
+            return normalized
+        raise SystemExit("Token must not be empty.")
+
+    prompted = getpass.getpass("Enter your VUIHOC token for vh-lms-mcp: ").strip()
+    if prompted:
+        return prompted
+    raise SystemExit("Token input cancelled or empty.")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Install or update the global Codex MCP config for LMS Review."
     )
-    parser.add_argument("--token", required=True, help="VUIHOC token to send as MCP header")
+    parser.add_argument(
+        "--token",
+        help="VUIHOC token to send as MCP header. If omitted, the script prompts for it.",
+    )
     parser.add_argument(
         "--config",
         type=Path,
@@ -80,7 +97,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    install_global_mcp(config_path=args.config, token=args.token)
+    token = resolve_token(args.token)
+    install_global_mcp(config_path=args.config, token=token)
     print(f"Updated {args.config} with global MCP server '{SERVER_NAME}'.")
 
 
