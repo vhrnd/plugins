@@ -2,6 +2,7 @@
   "mcpServers": {
     "vh-lms-mcp": {
       "disabled": false,
+      "type": "http",
       "headers": {
         "token": "<YOUR_VUIHOC_TOKEN>"
       },

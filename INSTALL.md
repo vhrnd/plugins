@@ -28,6 +28,8 @@ python3 plugins/lms-review/scripts/install_codex_mcp.py --token "<USER_VUIHOC_TO
 
 Restart Codex. That's it — the MCP should now be available globally as `vh-lms-mcp`.
 
+Do not rely on editing the token only inside the plugin UI. Persist the token through `~/.codex/config.toml` using the command above.
+
 ## Verify
 
 Check `~/.codex/config.toml` contains:
