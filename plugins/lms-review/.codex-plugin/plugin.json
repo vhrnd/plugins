@@ -16,11 +16,12 @@
     "mcp",
     "vuihoc"
   ],
+  "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "LMS Review",
     "shortDescription": "Connect Codex to the hosted VUIHOC LMS MCP server for review workflows",
-    "longDescription": "Install this plugin to access the hosted VUIHOC LMS MCP server and review revise or practice data with your own VUIHOC token.",
+    "longDescription": "Install this plugin to access the hosted VUIHOC LMS MCP server and bundled LMS review skill for revise or practice audits with your own VUIHOC token.",
     "developerName": "VH EdTech",
     "category": "Productivity",
     "capabilities": [

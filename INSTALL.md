@@ -20,6 +20,11 @@ The marketplace definition is:
 .agents/plugins/marketplace.json
 ```
 
+The plugin ships with:
+
+- the hosted MCP connection `vh-lms-mcp`
+- the bundled skill `lms-review` for revise/practice audit workflows
+
 After installing the plugin, register the MCP globally in Codex:
 
 ```bash
@@ -35,6 +40,8 @@ python3 plugins/lms-review/scripts/install_codex_mcp.py --token "<USER_VUIHOC_TO
 ```
 
 Restart Codex. The MCP should now be available globally as `vh-lms-mcp`.
+
+After restart, Codex can also load the bundled `lms-review` skill from the plugin package.
 
 Do not rely on editing the token only inside the plugin UI. Persist the token through the install script above so users do not need to open `~/.codex/config.toml` manually.
 
