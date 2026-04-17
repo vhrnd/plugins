@@ -3,5 +3,18 @@
   "interface": {
     "displayName": "LMS MCP Plugins"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "lms-review",
+      "source": {
+        "source": "local",
+        "path": "./plugins/lms-review"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
 }
