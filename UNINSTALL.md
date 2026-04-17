@@ -8,6 +8,12 @@ Remove the `LMS Review` plugin and remove the global Codex MCP server:
 [mcp_servers.vh-lms-mcp]
 ```
 
+If this plugin is still being published from a marketplace repository, also remove its entry from that repository's:
+
+```text
+.agents/plugins/marketplace.json
+```
+
 ## Instructions
 
 1. Remove the installed plugin cache if it exists:
@@ -48,6 +54,16 @@ token = "<USER_VUIHOC_TOKEN>"
 
 4. Restart Codex.
 
+5. If the plugin still appears in the Codex marketplace UI, remove its marketplace entry from the publishing repository and push that change.
+
+Example marketplace cleanup:
+
+```json
+{
+  "plugins": []
+}
+```
+
 ## Verify
 
 Confirm all of the following are true:
@@ -55,9 +71,11 @@ Confirm all of the following are true:
 - `~/.codex/plugins/cache/lms-mcp` does not exist
 - `~/.codex/config.toml` does not contain `lms-review@lms-mcp`
 - `~/.codex/config.toml` does not contain `vh-lms-mcp`
+- the publishing repository no longer contains an `lms-review` entry in `.agents/plugins/marketplace.json`
 
 ## Required behavior for the AI following this file
 
 - Prefer removing the installed artifacts directly instead of only explaining them.
 - Remove only `lms-review@lms-mcp` and `vh-lms-mcp`.
 - Do not modify unrelated plugins or MCP servers.
+- If the task includes removing the plugin from marketplace listings, also delete the `lms-review` entry from the publishing repository's `.agents/plugins/marketplace.json`.
